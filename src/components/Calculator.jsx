@@ -1,58 +1,31 @@
 import { useState } from "react";
 
 const defaultValues = {
-    "current-savings": 10000,
-    "yearly-contribution": 1200,
-    "expected-return": 7,
-    "duration": 10  
+  "current-savings": 10000,
+  "yearly-contribution": 1200,
+  "expected-return": 7,
+  duration: 10,
 };
 
-export const Calculator = () => {
-    const [userInput, setUserInput] = useState(defaultValues);
+export const Calculator = (props) => {
+  const [userInput, setUserInput] = useState(defaultValues);
 
   const submitHandler = (event) => {
     event.preventDefault();
+    props.onCalculate(userInput);
   };
 
   const resetHandler = () => {
-    setUserInput(defaultValues)
+    setUserInput(defaultValues);
   };
 
   const changeHandler = (input, value) => {
     setUserInput((prev) => {
-        return {
-            ...prev,
-            [input]: value
-        }
-    })
-  };
-
-  const calculateHandler = (event, userInput) => {
-    event.preventDefault();
-    // Should be triggered when form is submitted
-    // You might not directly want to bind it to the submit event on the form though...
-
-    const yearlyData = []; // per-year results
-
-    let currentSavings = +userInput["current-savings"]; // feel free to change the shape of this input object!
-    const yearlyContribution = +userInput["yearly-contribution"]; // as mentioned: feel free to change the shape...
-    const expectedReturn = +userInput["expected-return"] / 100;
-    const duration = +userInput["duration"];
-
-    // The below code calculates yearly results (total savings, interest etc)
-    for (let i = 0; i < duration; i++) {
-      const yearlyInterest = currentSavings * expectedReturn;
-      currentSavings += yearlyInterest + yearlyContribution;
-      yearlyData.push({
-        // feel free to change the shape of the data pushed to the array!
-        year: i + 1,
-        yearlyInterest: yearlyInterest,
-        savingsEndOfYear: currentSavings,
-        yearlyContribution: yearlyContribution,
-      });
-    }
-
-    // do something with yearlyData ...
+      return {
+        ...prev,
+        [input]: value,
+      };
+    });
   };
 
   return (
@@ -105,7 +78,7 @@ export const Calculator = () => {
         <button onClick={resetHandler} type="reset" className="buttonAlt">
           Reset
         </button>
-        <button type="submit" className="button" onClick={calculateHandler}>
+        <button type="submit" className="button">
           Calculate
         </button>
       </p>
