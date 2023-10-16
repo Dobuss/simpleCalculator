@@ -24,7 +24,7 @@ export const Calculator = (props) => {
     setUserInput((prev) => {
       return {
         ...prev,
-        [input]: value,
+        [input]: +value,
       };
     });
   };
