@@ -1,3 +1,5 @@
+import classes from './Statistics.module.css';
+
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -7,7 +9,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 export const Statistics = (props) => {
   return (
-    <table className="result">
+    <table className={classes.result}>
       <thead>
         <tr>
           <th>Year</th>
